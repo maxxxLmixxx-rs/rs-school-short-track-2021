@@ -13,8 +13,12 @@
  */
 
 const findIndex = (array, value) => {
-  for (let i = 0; i < array.length; i++) {
-    if (array[i] === value) return i;
+  const log2N = Math.ceil(Math.log2(array.length));
+  let pivot = Math.floor(array.length / 2);
+  for (let i = 1; i <= log2N; i++) {
+    if (value < array[pivot]) pivot = Math.floor(pivot - pivot / i ** 2);
+    if (value > array[pivot]) pivot = Math.floor(pivot + pivot / i ** 2);
+    if (value === array[pivot]) return pivot;
   }
   return -1;
 };
