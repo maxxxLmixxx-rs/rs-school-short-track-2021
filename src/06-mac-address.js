@@ -12,8 +12,9 @@
  * For 00-1B-63-84-45-E6, the output should be true.
  *
  */
-function isMAC48Address(/* n */) {
-  throw new Error('Not implemented');
-}
+const isMAC48Address = (inputString) => {
+  const isHexadecimal = (str) => !/[^0-9A-F]/i.test(str);
+  return inputString.split('-').every((num) => isHexadecimal(num));
+};
 
 module.exports = isMAC48Address;

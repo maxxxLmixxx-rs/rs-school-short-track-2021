@@ -21,8 +21,25 @@
  *  [1, 1, 1]
  * ]
  */
-function minesweeper(/* matrix */) {
-  throw new Error('Not implemented');
-}
+
+const minesweeper = (initialMatrix) => {
+  /* copy */
+  const matrix = initialMatrix.map((row) => row.slice());
+
+  const calculateSurround = (y, x, depth = 1) => {
+    let counter = 0;
+    for (let iy = y - depth; iy <= y + depth; iy++) {
+      for (let ix = x - depth; ix <= x + depth; ix++) {
+        if (initialMatrix[iy] && initialMatrix[iy][ix]) counter++;
+      }
+    }
+    return counter;
+  };
+
+  return matrix.map((matrixRow, y) => matrixRow.map((matrixCell, x) => {
+    if (matrixCell === false) return calculateSurround(y, x);
+    return 1;
+  }));
+};
 
 module.exports = minesweeper;

@@ -14,8 +14,12 @@
  *
  * The result should be 9
  */
-function getMatrixElementsSum(/* matrix */) {
-  throw new Error('Not implemented');
-}
 
-module.exports = getMatrixElementsSum;
+const getMxElementsSum = (matrix) => {
+  const mxLength = matrix[0].length;
+  return matrix.flat()
+    .filter((_, i, flatMatrix) => flatMatrix[i - mxLength] !== 0)
+    .reduce((acc, v) => acc + v);
+};
+
+module.exports = getMxElementsSum;

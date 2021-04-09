@@ -20,8 +20,17 @@
  * }
  *
  */
-function getDNSStats(/* domains */) {
-  throw new Error('Not implemented');
-}
+
+const getDNSStats = (domains) => {
+  const getPartialDomains = (domainArray) => domainArray.reverse()
+    .map((__, ix) => `.${domainArray.slice(0, ix + 1).join('.')}`);
+
+  return domains.map((domain) => getPartialDomains(domain.split('.')))
+    .flat().reduce((acc, domain) => {
+      const counter = acc;
+      counter[domain] = domain in counter ? counter[domain] + 1 : 1;
+      return counter;
+    }, {});
+};
 
 module.exports = getDNSStats;
